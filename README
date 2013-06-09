@@ -1,1 +1,1 @@
-This project demonstrates using Reactor pattern and Thread executors in order to achieve ordered message processing.
+This project demonstrates using event loop and Thread executors in order to achieve ordered message processing.
