@@ -13,7 +13,7 @@ public class ReactorTest {
     MessageQueue messageQueue = Mockito.mock(MessageQueue.class);
     MessageExecutor messageExecutor = new MessageExecutorImpl(3);
     MappingMessageExecutorImpl mappingMessageExecutor = new MappingMessageExecutorImpl(3);
-    HashedMessageExecutorImpl hashedMessageExecutor = new HashedMessageExecutorImpl(3);
+    MappingMessageExecutorImpl hashedMessageExecutor = new MappingMessageExecutorImpl(3);
     private Message message1 = new Message("M1");
     private Message message2 = new Message("M2");
     private Message message3 = new Message("M3");
@@ -32,7 +32,6 @@ public class ReactorTest {
     public void testExecute() throws InterruptedException {
         Reactor reactor = new Reactor(messageQueue, messageExecutor);
         reactor.execute();
-        Thread.sleep(1000);
         reactor.stop();
     }
 
@@ -44,11 +43,8 @@ public class ReactorTest {
         message4.setCorrelationId("Trader1");
         message5.setCorrelationId("Trader2");
         Reactor reactor = new Reactor(messageQueue, mappingMessageExecutor);
-
         reactor.execute();
-        Thread.sleep(1000);
         reactor.stop();
-
     }
 
     @Test
@@ -58,12 +54,9 @@ public class ReactorTest {
         message3.setCorrelationId("Trader3");
         message4.setCorrelationId("Trader1");
         message5.setCorrelationId("Trader2");
-        Reactor reactor = new Reactor(messageQueue, hashedMessageExecutor);
-
+        Reactor reactor = new Reactor(messageQueue, mappingMessageExecutor);
         reactor.execute();
-        Thread.sleep(1000);
         reactor.stop();
-
     }
 
     //simulate a blocking listening operation
